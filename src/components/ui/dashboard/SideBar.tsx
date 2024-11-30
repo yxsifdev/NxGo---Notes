@@ -1,23 +1,34 @@
+"use client";
+
 import React from "react";
 import { usePathname } from "next/navigation";
 
 import Image from "next/image";
 import Link from "next/link";
+import HomeIcon from "@/icons/Home";
+import SettingsIcon from "@/icons/Settings";
+import FileIcon from "@/icons/File";
 
 interface SidebarItemProps {
   icon: React.ReactNode;
   label: string;
   href: string;
+  count?: string;
 }
 
 const sidebarItems: SidebarItemProps[] = [
-  { icon: <span>🏠</span>, label: "Dashboard", href: "/dashboard" },
+  { icon: <HomeIcon />, label: "Todas", href: "/dashboard", count: "0" },
   {
-    icon: <span>⚙️</span>,
+    icon: <FileIcon />,
+    label: "Archivados",
+    href: "/dashboard/archived",
+    count: "0",
+  },
+  {
+    icon: <SettingsIcon />,
     label: "Configuración",
     href: "/dashboard/settings",
   },
-  { icon: <span>📁</span>, label: "Archivados", href: "/dashboard/archived" },
 ];
 
 export default function SideBarComponent({
@@ -28,10 +39,10 @@ export default function SideBarComponent({
   const pathname = usePathname();
 
   return (
-    <section className="hidden md:block border-r border-white/10 min-w-[250px] h-screen">
+    <section className="fixed hidden md:block border-r border-zinc-800 min-w-[300px] h-screen px-2">
       <div>
         <aside className="flex items-center justify-between p-4 mb-5">
-          <div className="text-2xl font-bold tracking-tight">NxGo ✨</div>
+          <div className="text-2xl font-bold tracking-tight">Bienvenido</div>
           <Image
             src={userAvatar}
             alt="user-profile"
@@ -40,18 +51,20 @@ export default function SideBarComponent({
             className="rounded-full"
           />
         </aside>
-        <nav className="">
-          {sidebarItems.map(({ icon, label, href }) => (
+        <nav className="space-y-1">
+          {sidebarItems.map(({ icon, label, href, count }) => (
             <Link
               key={href}
               href={href}
-              className={`flex items-center gap-2 px-4 py-2 transition-colors border-l-2 border-transparent hover:bg-blue-500/20 hover:border-blue-500 ${
-                pathname === href &&
-                "bg-blue-500/20 border-blue-500 font-medium"
+              className={`flex justify-between text-sm font-medium items-center gap-2 px-4 py-1.5 transition-colors border-l-2 border-transparent hover:bg-zinc-800 rounded-md ${
+                pathname === href && "bg-zinc-800"
               }`}
             >
-              <span>{icon}</span>
-              <span>{label}</span>
+              <div className="flex items-center gap-x-2">
+                <span>{icon}</span>
+                <span>{label}</span>
+              </div>
+              <span>{count}</span>
             </Link>
           ))}
         </nav>

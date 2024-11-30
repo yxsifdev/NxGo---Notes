@@ -1,0 +1,22 @@
+thead {
+  user-select: none;
+}
+
+tr th {
+  background-color: #27272a;
+  border: 1px solid #3f3f46;
+  padding: 5px 10px;
+}
+
+tbody tr {
+  cursor: pointer;
+
+  &:hover {
+    background-color: #18181b;
+  }
+}
+
+td {
+  padding: 10px;
+  border: 1px solid #3f3f46;
+}
