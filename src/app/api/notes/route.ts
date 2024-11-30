@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import db from "@/lib/db";
 import { authOptions } from "@/lib/authOptions";
 
-export async function GET(response: NextResponse) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions);
     console.log("SHOW SESSION");
@@ -33,4 +33,4 @@ export async function GET(response: NextResponse) {
   }
 }
 
-export async function POST(request: NextRequest) {}
+// export async function POST(request: NextRequest) {}
